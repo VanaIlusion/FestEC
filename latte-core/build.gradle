@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.jakewharton.butterknife'//加入其插件作用是生存Rr类，该类用来生成视图绑定所需要的id
 
 android {
     compileSdkVersion 25
@@ -33,4 +34,18 @@ dependencies {
     //字体图标
     compile 'com.joanzapata.iconify:android-iconify-typicons:2.2.2'
     compile 'com.joanzapata.iconify:android-iconify-fontawesome:2.2.2'
+    //fragment依赖
+    compile 'me.yokeyword:fragmentation:1.0.3'
+    compile 'me.yokeyword:fragmentation-swipeback:1.0.3'
+    //ButterKnife依赖(视图注入)
+    compile 'com.jakewharton:butterknife:8.6.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+    //网络请求依赖
+    compile 'com.squareup.okio:okio:1.13.0'
+    compile 'com.squareup.okhttp3:okhttp:3.8.1'
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-scalars:2.3.0'
+    //loaddig依赖
+    compile 'com.wang.avi:library:2.1.3'
+
 }
