@@ -1,6 +1,9 @@
 package com.wind.latte.app;
 
-import java.util.WeakHashMap;
+import com.joanzapata.iconify.IconFontDescriptor;
+import com.joanzapata.iconify.Iconify;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by theWind on 2017/8/9.
@@ -8,14 +11,36 @@ import java.util.WeakHashMap;
 
 public class Configurator {
 
-    //据说WeakHashMap里面的键值对在不使用的时候就会回收，且非常及时，可以最大限度的避免内存爆满
-    private static final WeakHashMap<String,Object> LATTE_CONFIGS = new WeakHashMap<>();
-    public static WeakHashMap<String,Object> getLatteConfigs(){
+    /**
+     * 据说WeakHashMap里面的键值对在不使用的时候就会回收，且非常及时，可以最大限度的避免内存爆满
+     * 由于LATTE_CONFIGS几乎伴随着整个应用的生命周期，这里显然不适用
+     */
+//    private static final WeakHashMap<String,Object> LATTE_CONFIGS = new WeakHashMap<>();
+    private static final HashMap<String,Object> LATTE_CONFIGS = new HashMap<>();
+    private static final ArrayList<IconFontDescriptor> ICONS = new ArrayList<>();//存储字体图标
+
+    /**
+     * 配置开始了但是没有配置完成
+     */
+    private Configurator(){
+        LATTE_CONFIGS.put(ConfigType.CONGIG_READY.name(),false);
+    }
+
+    public static HashMap<String,Object> getLatteConfigs(){
         return LATTE_CONFIGS;
     }
 
-    private Configurator(){
-        LATTE_CONFIGS.put(ConfigType.CONGIG_READY.name(),false);
+    private void initIcons(){
+        if(ICONS.size()>0){//有字体了
+            final Iconify.IconifyInitializer initializer = Iconify.with(ICONS.get(0));
+            for(int i=1;i<ICONS.size();i++){
+                initializer.with(ICONS.get(i));
+            }
+        }
+    }
+    public final Configurator withIcon(IconFontDescriptor descriptor){
+        ICONS.add(descriptor);
+        return this;
     }
 
     /**
@@ -31,12 +56,13 @@ public class Configurator {
 
     public final void configure(){
         LATTE_CONFIGS.put(ConfigType.CONGIG_READY.name(),true);
+        initIcons();
     }
 
     /**
      *
      * @param host
-     * @return :这里返回值类型的这种设计值得借鉴
+     * @return :这里返回值类型的这种设计值得借鉴,一种标准初始化的思路
      */
     public final Configurator withApiHost(String host){
         LATTE_CONFIGS.put(ConfigType.API_HOST.name(),host);
@@ -47,8 +73,9 @@ public class Configurator {
      * 检查配置项是否完成
      */
     private static void checkConfiguration(){
+        //在写类变量或方法变量时，尽量让它的不可变性达到最大化
         final boolean isReady = (boolean) LATTE_CONFIGS.get(ConfigType.CONGIG_READY.name());
-        if (isReady){
+        if (!isReady){
             throw  new RuntimeException("Configuration is not ready,call configure");
         }
     }
