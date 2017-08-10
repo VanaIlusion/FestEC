@@ -32,6 +32,9 @@ public class RestClientBuilder {
     private File mFile = null;
     private Context mContext = null;
     private LoaderStyle mLoaderStyle = null;
+    private String mDownloadDir = null;
+    private String mExtension = null;
+    private String mName = null;
 
     //不允许外部包的类new它的实例，本包内可以，不同于private
     RestClientBuilder() {
@@ -61,6 +64,22 @@ public class RestClientBuilder {
         this.mFile = new File(file);
         return this;
     }
+
+    public final RestClientBuilder dir(String dir) {
+        this.mDownloadDir = dir;
+        return this;
+    }
+
+    public final RestClientBuilder extension(String extension) {
+        this.mExtension = extension;
+        return this;
+    }
+
+    public final RestClientBuilder name(String name) {
+        this.mName = name;
+        return this;
+    }
+
 
     public final RestClientBuilder raw(String raw) {
         this.mBody = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), raw);
@@ -101,6 +120,6 @@ public class RestClientBuilder {
     }
 
     public final RestClient build() {
-        return new RestClient(mUrl, PARAMS, mIRequest, mISuccess, mIFailure, mIError, mBody, mFile, mContext, mLoaderStyle);
+        return new RestClient(mUrl, PARAMS, mDownloadDir, mExtension, mName, mIRequest, mISuccess, mIFailure, mIError, mBody, mFile, mContext, mLoaderStyle);
     }
 }

@@ -50,7 +50,7 @@ public interface RestService {
      * @param params
      * @return
      * @Streaming： 不加该注解时，下载时先加载进内存，完成后在写入文件，这样如果下载文件过大，会导致内存溢出，
-     * 加上表示边下载边写入文件
+     * 加上表示边下载边写入文件(注意：这里要用异步)
      */
     @Streaming
     @GET

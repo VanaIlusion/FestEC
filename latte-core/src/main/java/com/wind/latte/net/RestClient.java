@@ -7,6 +7,7 @@ import com.wind.latte.net.callback.IFailure;
 import com.wind.latte.net.callback.IRequest;
 import com.wind.latte.net.callback.ISuccess;
 import com.wind.latte.net.callback.RequestsCallbacks;
+import com.wind.latte.net.download.DownloadHandler;
 import com.wind.latte.ui.LatteLoader;
 import com.wind.latte.ui.LoaderStyle;
 
@@ -36,9 +37,15 @@ public class RestClient {
     private final File FILE;
     private LoaderStyle LOADER_STYLE;
     private Context CONTEXT;
+    private final String DOWNLOAD_DIR;
+    private final String EXTENSION;
+    private final String NAME;
 
     public RestClient(String url,
                       Map<String, Object> params,
+                      String downlaodDir,
+                      String extension,
+                      String name,
                       IRequest request,
                       ISuccess success,
                       IFailure failure,
@@ -49,6 +56,9 @@ public class RestClient {
                       LoaderStyle loaderStyle) {
         this.URL = url;
         PARAMS.putAll(params);
+        this.DOWNLOAD_DIR = downlaodDir;
+        this.EXTENSION = extension;
+        this.NAME = name;
         this.REQUEST = request;
         this.SUCCESS = success;
         this.FAILURE = failure;
@@ -139,5 +149,13 @@ public class RestClient {
 
     public final void delete() {
         request(HttpMethod.DELETE);
+    }
+
+    public final void upload(){
+        request(HttpMethod.UPLOAD);
+    }
+
+    public final void download(){
+        new DownloadHandler(URL,REQUEST,DOWNLOAD_DIR,EXTENSION,NAME,SUCCESS,FAILURE,ERROR).handlerDownload();
     }
 }
