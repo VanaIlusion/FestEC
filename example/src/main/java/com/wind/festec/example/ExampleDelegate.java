@@ -2,6 +2,7 @@ package com.wind.festec.example;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -28,25 +29,26 @@ public class ExampleDelegate extends LatteDelegate {
 
     private void testRequestClient() {
         RestClient.builder()
-                .url("https://www.baidu.com/")
+                .url("http://127.0.0.1/index")
                // .params("", "")
                 .loader(getContext())
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
-//                        Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
+                        Log.e("wind","onSuccess   :");
                     }
                 })
                 .failure(new IFailure() {
                     @Override
                     public void onFailure() {
-
+                        Log.e("wind","onFailure   :");
                     }
                 })
                 .error(new IError() {
                     @Override
                     public void onError(int code, String msg) {
-
+                        Log.e("wind","onError   :");
                     }
                 })
                 .build()

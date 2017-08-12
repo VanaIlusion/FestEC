@@ -1,9 +1,11 @@
 package com.wind.latte.net.callback;
 
 import android.os.Handler;
+import android.util.Log;
 
 import com.wind.latte.ui.LatteLoader;
 import com.wind.latte.ui.LoaderStyle;
+import com.wind.latte.utils.ILog;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,11 +39,13 @@ public class RequestsCallbacks implements Callback<String> {
             if (call.isExecuted()) {
                 if (SUCCESS != null) {
                     SUCCESS.onSuccess(response.body());
+                    ILog.e("-------onSuccess-------"+response.body());
                 }
             }
         } else {
             if (ERROR != null) {
                 ERROR.onError(response.code(), response.message());
+                ILog.e("------onError------"+response.message());
             }
         }
         stopLoading();
@@ -52,9 +56,11 @@ public class RequestsCallbacks implements Callback<String> {
     public void onFailure(Call<String> call, Throwable t) {
         if (FAILURE != null) {
             FAILURE.onFailure();
+            ILog.e("-----onFailure------");
         }
         if (REQUEST != null) {
             REQUEST.onRequestEnd();
+            ILog.e("-----onRequestEnd------");
         }
         stopLoading();
     }

@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.jakewharton.butterknife'//加入其插件作用是生存R2文件，用来生成视图绑定所需要的id
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 25
@@ -24,4 +26,5 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':latte-core')
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
 }
