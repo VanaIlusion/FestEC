@@ -3,11 +3,7 @@ package com.wind.latte.net.rx;
 import android.content.Context;
 
 import com.wind.latte.net.RestCreator;
-import com.wind.latte.net.callback.IError;
-import com.wind.latte.net.callback.IFailure;
-import com.wind.latte.net.callback.IRequest;
-import com.wind.latte.net.callback.ISuccess;
-import com.wind.latte.ui.LoaderStyle;
+import com.wind.latte.ui.loader.LoaderStyle;
 
 import java.io.File;
 import java.util.Map;

@@ -11,6 +11,7 @@ import com.wind.latte.net.RestClient;
 import com.wind.latte.net.callback.IError;
 import com.wind.latte.net.callback.IFailure;
 import com.wind.latte.net.callback.ISuccess;
+import com.wind.latte.utils.ILog;
 
 /**
  * Created by theWind on 2017/8/9.
@@ -29,29 +30,29 @@ public class ExampleDelegate extends LatteDelegate {
 
     private void testRequestClient() {
         RestClient.builder()
-                .url("http://127.0.0.1/index")
+                .url("user_profile.php")
                // .params("", "")
                 .loader(getContext())
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
                         Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
-                        Log.e("wind","onSuccess   :");
+                        ILog.e("onSuccess   :");
                     }
                 })
                 .failure(new IFailure() {
                     @Override
                     public void onFailure() {
-                        Log.e("wind","onFailure   :");
+                        ILog.e("onFailure   :");
                     }
                 })
                 .error(new IError() {
                     @Override
                     public void onError(int code, String msg) {
-                        Log.e("wind","onError   :");
+                        ILog.e("onError   :");
                     }
                 })
                 .build()
-                .get();
+                .post();
     }
 }

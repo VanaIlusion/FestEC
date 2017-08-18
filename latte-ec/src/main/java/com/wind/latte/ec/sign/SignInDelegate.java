@@ -15,6 +15,8 @@ import com.wind.latte.net.RestClient;
 import com.wind.latte.net.callback.ISuccess;
 import com.wind.latte.utils.ILog;
 import com.wind.latte.utils.LatteLogger;
+import com.wind.latte.wechat.IWeChatSignInCallback;
+import com.wind.latte.wechat.LatteWeChat;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -23,7 +25,7 @@ import butterknife.OnClick;
  * Created by theWind on 2017/8/12.
  */
 
-public class SignInDelegate extends LatteDelegate{
+public class SignInDelegate extends LatteDelegate {
 
     @BindView(R2.id.edit_sign_in_email)
     TextInputEditText mEmail = null;
@@ -31,26 +33,27 @@ public class SignInDelegate extends LatteDelegate{
     TextInputEditText mPassword = null;
 
     private ISignListener mISignListener = null;
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        if (activity instanceof  ISignListener){
+        if (activity instanceof ISignListener) {
             mISignListener = (ISignListener) activity;
         }
     }
 
     @OnClick(R2.id.btn_sign_in)
     void onClickSignIn() {
-        if (checkForm()){
+        if (checkForm()) {
             RestClient.builder()
-                    .url("SignInUrl......")
+                    .url("http://192.168.191.1/FestEcService/api/user_profile/php")
                     .params("email", mEmail.getText().toString())
                     .params("password", mPassword.getText().toString())
                     .success(new ISuccess() {
                         @Override
                         public void onSuccess(String response) {
-                            LatteLogger.json(ILog.TAG,response);
-                            SignHandler.onSignIn(response,mISignListener);
+                            LatteLogger.json(ILog.TAG, response);
+                            SignHandler.onSignIn(response, mISignListener);
                         }
                     })
                     .build()
@@ -61,12 +64,17 @@ public class SignInDelegate extends LatteDelegate{
     //跳转到注册页面
     @OnClick(R2.id.tv_link_sign_up)
     void onClickSignLink() {
-       start(new SignUpDelegate());
+        start(new SignUpDelegate());
     }
 
     @OnClick(R2.id.icon_sign_in_wechat)
     void onClickWeiChat() {
+        LatteWeChat.getInstence().onSignInCallback(new IWeChatSignInCallback() {
+            @Override
+            public void onSignInSuccess(String userInfo) {
 
+            }
+        }).signIn();
     }
 
     private boolean checkForm() {
@@ -90,6 +98,7 @@ public class SignInDelegate extends LatteDelegate{
         return isPass;
 
     }
+
     @Override
     public Object setLayout() {
         return R.layout.delegate_sign_in;

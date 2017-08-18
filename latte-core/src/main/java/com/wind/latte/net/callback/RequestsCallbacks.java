@@ -1,10 +1,9 @@
 package com.wind.latte.net.callback;
 
 import android.os.Handler;
-import android.util.Log;
 
-import com.wind.latte.ui.LatteLoader;
-import com.wind.latte.ui.LoaderStyle;
+import com.wind.latte.ui.loader.LatteLoader;
+import com.wind.latte.ui.loader.LoaderStyle;
 import com.wind.latte.utils.ILog;
 
 import retrofit2.Call;

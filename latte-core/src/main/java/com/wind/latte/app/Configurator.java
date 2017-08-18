@@ -1,5 +1,8 @@
 package com.wind.latte.app;
 
+import android.app.Activity;
+import android.os.Handler;
+
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
 
@@ -23,12 +26,14 @@ public class Configurator {
     private static final HashMap<Object, Object> LATTE_CONFIGS = new HashMap<>();
     private static final ArrayList<IconFontDescriptor> ICONS = new ArrayList<>();//存储字体图标
     private static final ArrayList<Interceptor> INTERCEPTORS = new ArrayList<>();//拦截
+    private static final Handler HANDLER = new Handler();
 
     /**
      * 配置开始了但是没有配置完成
      */
     private Configurator() {
         LATTE_CONFIGS.put(ConfigKeys.CONFIG_READY, false);
+        LATTE_CONFIGS.put(ConfigKeys.HANDLER, HANDLER);
     }
 
     public static HashMap<Object, Object> getLatteConfigs() {
@@ -44,7 +49,7 @@ public class Configurator {
         }
     }
 
-    //是否调试阶段
+    //是否调试阶段,用来做一些控制如log的打印
     public final Configurator withDebug(boolean isDebug) {
         LATTE_CONFIGS.put(ConfigKeys.IS_DEBUG, isDebug);
         return this;
@@ -95,6 +100,39 @@ public class Configurator {
      */
     public final Configurator withApiHost(String host) {
         LATTE_CONFIGS.put(ConfigKeys.API_HOST, host);
+        return this;
+    }
+
+    /**
+     * 微信配置
+     *
+     * @param appSecret
+     * @return
+     */
+    public final Configurator withWeChatAppSecret(String appSecret) {
+        LATTE_CONFIGS.put(ConfigKeys.WE_CHAT_APP_SECRET, appSecret);
+        return this;
+    }
+
+    /**
+     * 配置微信的appId
+     *
+     * @param appId
+     * @return
+     */
+    public final Configurator withWeChatAppId(String appId) {
+        LATTE_CONFIGS.put(ConfigKeys.WE_CHAT_APP_ID, appId);
+        return this;
+    }
+
+    /**
+     * 微信拉取回调Activity时，会需要一个Activity的上下文，这里显然不能用全局的Context
+     *
+     * @param activity
+     * @return
+     */
+    public final Configurator withWeChatActivity(Activity activity) {
+        LATTE_CONFIGS.put(ConfigKeys.ACTIVITY, activity);
         return this;
     }
 

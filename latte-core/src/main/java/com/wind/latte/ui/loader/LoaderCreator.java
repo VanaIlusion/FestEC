@@ -1,4 +1,4 @@
-package com.wind.latte.ui;
+package com.wind.latte.ui.loader;
 
 import android.content.Context;
 

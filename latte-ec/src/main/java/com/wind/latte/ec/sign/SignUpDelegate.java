@@ -51,7 +51,7 @@ public class SignUpDelegate extends LatteDelegate {
     void onClickSignUp() {
         if (checkForm()) {
             RestClient.builder()
-                    .url("SignUpUrl......")
+                    .url("http://192.168.191.1/FestEcService/api/user_profile/php")
                     .params("name", mName.getText().toString())
                     .params("email", mEmail.getText().toString())
                     .params("phone", mPhone.getText().toString())
@@ -65,7 +65,6 @@ public class SignUpDelegate extends LatteDelegate {
                     })
                     .build()
                     .post();
-            IToast.showLong("验证通过");
         }
     }
 

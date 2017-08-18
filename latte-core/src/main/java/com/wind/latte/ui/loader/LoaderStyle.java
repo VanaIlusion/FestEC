@@ -1,4 +1,4 @@
-package com.wind.latte.ui;
+package com.wind.latte.ui.loader;
 
 /**
  * Created by theWind on 2017/8/10.

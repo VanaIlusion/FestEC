@@ -2,11 +2,13 @@ package com.wind.latte.net;
 
 import android.content.Context;
 
+import com.wind.latte.app.ConfigKeys;
+import com.wind.latte.app.Latte;
 import com.wind.latte.net.callback.IError;
 import com.wind.latte.net.callback.IFailure;
 import com.wind.latte.net.callback.IRequest;
 import com.wind.latte.net.callback.ISuccess;
-import com.wind.latte.ui.LoaderStyle;
+import com.wind.latte.ui.loader.LoaderStyle;
 
 import java.io.File;
 import java.util.Map;
@@ -41,7 +43,7 @@ public class RestClientBuilder {
     }
 
     public final RestClientBuilder url(String url) {
-        this.mUrl = url;
+        this.mUrl = Latte.getConfiguration(ConfigKeys.API_HOST) + url;
         return this;
     }
 

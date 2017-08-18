@@ -20,12 +20,15 @@ public class ExampleAppLication extends Application {
         Latte.init(this)
                 .withDebug(true)
                 .withIcon(new FontAwesomeModule())
+//                .withLoaderDelayed(1000)
+                .withWeChatAppId("")
+                .withWeChatAppSecret("")
                 .withIcon(new FontEcModule())
-                .withApiHost("http://127.0.0.1/")
-                .withInterceptor(new DebugInterceptor("index", R.raw.test))
+                .withApiHost("http://192.168.191.1/FestEcService/api/")
+//                .withInterceptor(new DebugInterceptor("index", R.raw.test))
                 .configure();
 
-        initTetho();
+//        initTetho();
         DatabaseManager.getInstance().init(this);
     }
 
