@@ -5,9 +5,10 @@ import android.app.Application;
 import com.facebook.stetho.Stetho;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 import com.wind.latte.app.Latte;
+import com.wind.festec.example.event.TestEvent;
 import com.wind.latte.ec.database.DatabaseManager;
 import com.wind.latte.ec.icon.FontEcModule;
-import com.wind.latte.net.interceptors.DebugInterceptor;
+import com.wind.latte.net.rx.AddCookieInterceptor;
 
 /**
  * Created by theWind on 2017/8/9.
@@ -24,7 +25,12 @@ public class ExampleAppLication extends Application {
                 .withWeChatAppId("")
                 .withWeChatAppSecret("")
                 .withIcon(new FontEcModule())
-                .withApiHost("http://192.168.191.1/FestEcService/api/")
+                .withApiHost("http://116.196.95.67/RestServer/api/")
+                .withJavascriptInterface("latte")
+                .withWebEvent("test",new TestEvent())
+                //添加Cookie同步拦截器
+                .withWebHost("https://www.baidu.com/")
+                .withInterceptor(new AddCookieInterceptor())
 //                .withInterceptor(new DebugInterceptor("index", R.raw.test))
                 .configure();
 

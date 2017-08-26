@@ -58,7 +58,6 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener, Bas
     }
 
     public void firstPage(String url) {
-        ILog.e(url);
         BEAN.setDelayed(1000);
         RestClient.builder()
                 .url(url)

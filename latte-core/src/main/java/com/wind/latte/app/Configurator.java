@@ -2,9 +2,12 @@ package com.wind.latte.app;
 
 import android.app.Activity;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
+import com.wind.latte.delegates.web.event.Event;
+import com.wind.latte.delegates.web.event.EventManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -136,6 +139,17 @@ public class Configurator {
         return this;
     }
 
+    public Configurator withJavascriptInterface(@NonNull String name) {
+        LATTE_CONFIGS.put(ConfigKeys.JAVASCRIPT_INTERFACE, name);
+        return this;
+    }
+
+    public Configurator withWebEvent(@NonNull String name, @NonNull Event event) {
+        final EventManager manager = EventManager.getInstance();
+        manager.addEvent(name, event);
+        return this;
+    }
+
     /**
      * 检查配置项是否完成
      */
@@ -152,6 +166,12 @@ public class Configurator {
     final <T> T getConfiguration(Object key) {
         checkConfiguration();
         return (T) LATTE_CONFIGS.get(key);
+    }
+
+    //浏览器加载的host
+    public Configurator withWebHost(String host) {
+        LATTE_CONFIGS.put(ConfigKeys.WEB_HOST, host);
+        return this;
     }
 
 }

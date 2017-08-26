@@ -6,6 +6,8 @@ import com.wind.latte.delegates.bottom.BaseBottomDelegate;
 import com.wind.latte.delegates.bottom.BottomItemDelegate;
 import com.wind.latte.delegates.bottom.BottomTabBean;
 import com.wind.latte.delegates.bottom.ItemBuilder;
+import com.wind.latte.ec.main.cart.ShopCartDelegate;
+import com.wind.latte.ec.main.discover.DiscoverDelegate;
 import com.wind.latte.ec.main.index.IndexDelegate;
 import com.wind.latte.ec.main.sort.SortDelegate;
 
@@ -21,8 +23,8 @@ public class EcBottomDelegate extends BaseBottomDelegate {
         final LinkedHashMap<BottomTabBean, BottomItemDelegate> items = new LinkedHashMap<>();
         items.put(new BottomTabBean("{fa-home}","首页"),new IndexDelegate());
         items.put(new BottomTabBean("{fa-sort}","分类"),new SortDelegate());
-        items.put(new BottomTabBean("{fa-compass}","发现"),new SortDelegate());
-        items.put(new BottomTabBean("{fa-shopping-cart}","购物车"),new SortDelegate());
+        items.put(new BottomTabBean("{fa-compass}","发现"),new DiscoverDelegate());
+        items.put(new BottomTabBean("{fa-shopping-cart}","购物车"),new ShopCartDelegate());
         items.put(new BottomTabBean("{fa-user}","我的"),new SortDelegate());
         return builder.addItems(items).build();
     }

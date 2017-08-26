@@ -39,7 +39,7 @@ public class LatteLoader {
         final Window dialogWindow = dialog.getWindow();
 
         if (dialogWindow != null) {
-            WindowManager.LayoutParams lp = dialogWindow.getAttributes();
+           final WindowManager.LayoutParams lp = dialogWindow.getAttributes();
             //缩放
             lp.width = deviceWidth / LOAD_SIZE_SCALE;
             lp.height = deviceHeight / LOAD_SIZE_SCALE;

@@ -74,7 +74,6 @@ public class IndexDelegate extends BottomItemDelegate {
         super.onLazyInitView(savedInstanceState);
         initRefreshLayout();
         initRecyclerView();
-        ILog.e("onLazyInitView");
         mRefresHandler.firstPage("index.php");
     }
 }

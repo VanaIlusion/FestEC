@@ -38,13 +38,13 @@ public class RequestsCallbacks implements Callback<String> {
             if (call.isExecuted()) {
                 if (SUCCESS != null) {
                     SUCCESS.onSuccess(response.body());
-                    ILog.e("-------onSuccess-------"+response.body());
+                    ILog.e("-------onSuccess-------");
                 }
             }
         } else {
             if (ERROR != null) {
                 ERROR.onError(response.code(), response.message());
-                ILog.e("------onError------"+response.message());
+                ILog.e("------onError------");
             }
         }
         stopLoading();
